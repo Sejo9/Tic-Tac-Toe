@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&display=swap');
+
+:root {
+    --blue: #31C3BD;
+    --lightBlue: #65E9E4;
+    --blueShadow: rgba(101, 233, 229, 0.3);
+    --yellow: #F2B137;
+    --lightYellow: #FFC860;
+    --yellowShadow: rgba(242, 157, 36, 0.911);
+    --navy: #1A2A33;
+    --lightNavy: #1F3641;
+    --navyShadow: #131f25;
+    --silver: #A8BFC9;
+    --lightSilver: #DBE8ED;
+    --silverShadow: rgba(219, 232, 237, 0.3);
+}
+
+* {
+    font-family: 'Outfit', sans-serif;
+}
+
+
+/* Typography */
+.heading-l {
+    font-weight: 700;
+    font-size: 40px;
+    letter-spacing: 2.5px;
+}
+
+.heading-m {
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 1.5px;
+}
+
+.heading-s {
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 1.25px;
+}
+
+.heading-xs {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.body {
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.8px;
+}
+
+
+/* Buttons */
+.btn-primary {
+    border: none;
+    border-radius: 10px;
+    padding: 15px 0px;
+    color: var(--navy);
+    cursor: pointer;
+}
+
+.btn-secondary {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+
+.yellow-btn {
+    background-color: var(--yellow);
+    box-shadow: 0 5px var(--yellowShadow);
+}
+
+.yellow-btn:hover {
+    background-color: var(--lightYellow);
+}
+
+.blue-btn {
+    background-color: var(--blue);
+    box-shadow: 0 5px var(--blueShadow);
+}
+
+.blue-btn:hover {
+    background-color: var(--lightBlue);
+}
+
+.silver-btn {
+    background-color: var(--silver);
+    box-shadow: 0 5px var(--silverShadow);
+}
+
+.silver-btn:hover {
+    background-color: var(--lightSilver);
+}
+
+.choice-btn-selected {
+    background: var(--silver);
+    width: 48%;
+    margin: 10px 0;
+}
+
+.choice-btn-inactive {
+    background: var(--navy);
+    width: 48%;
+    margin: 10px 0;
+}
+
+.choice-btn-inactive:hover {
+    background: var(--lightNavy);
+}
+
+
+/* Elements */
+body {
+    background-color: var(--navy);
+    color: var(--silver);
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Menu */
+#xo {
+    margin-bottom: 20px;
+}
+
+#menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50vw;
+    margin: auto;
+}
+
+#new-game-btns {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+#pick-choice-outer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 5px var(--navyShadow);
+    width: 50%;
+    background-color: var(--lightNavy);
+    margin-bottom: 30px;
+}
+
+#pick-choice-inner {
+    background-color: var(--navy);
+    width: 80%;
+    border-radius: 10px;
+    padding: 0 2%;
+}
+
+/* Game */
+#game {
+    display: none;
+}
