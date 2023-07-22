@@ -1,15 +1,18 @@
-
+import { scoreBoard, updateScoreBoard } from "./scores.js";
+import { showNextModal, showRestartModal } from "./resultmodal.js";
+import { cpuPlay } from "./cpu.js";
 
 let turn = "X";
 let turnsPlayed = 0;
 let roundOver = false;
 
+let board = [[], [], []];
 
-
-const board = [[], [], []];
+let playerDetails;
 
 const $gameBoard = $("#board");
 const $turnIndicator = $("#turn-indicator");
+const $restartBtn = $("#restart-btn");
 
 const createCell = (index) => {
   return `<div id="cell-${index}" class="navy-btn board-cell"></div>`;
@@ -20,6 +23,19 @@ const createBoard = () => {
   for (let i = 0; i < 9; i++) {
     $gameBoard.append(createCell(i));
   }
+};
+
+const resetGameBoard = () => {
+  roundOver = false;
+  turnsPlayed = 0;
+  $gameBoard.empty();
+  board = [[], [], []];
+  if (turn !== "X") {
+    changeTurnIndicator();
+  }
+  createBoard();
+  setCellsOnClickEvents();
+  checkCPUPlay();
 };
 
 //Change Turn Indicator
@@ -96,51 +112,136 @@ const checkForWinner = () => {
   switch (true) {
     case scenario1 === "XXX" || scenario1 === "OOO":
       roundOver = true;
+      updateScoreBoard(turn);
+      showNextModal(turn);
       break;
     case scenario2 === "XXX" || scenario2 === "OOO":
       roundOver = true;
+      updateScoreBoard(turn);
+      showNextModal(turn);
       break;
     case scenario3 === "XXX" || scenario3 === "OOO":
       roundOver = true;
+      updateScoreBoard(turn);
+      showNextModal(turn);
       break;
     case scenario4 === "XXX" || scenario4 === "OOO":
       roundOver = true;
+      updateScoreBoard(turn);
+      showNextModal(turn);
       break;
     case scenario5 === "XXX" || scenario5 === "OOO":
       roundOver = true;
+      updateScoreBoard(turn);
+      showNextModal(turn);
       break;
     case scenario6 === "XXX" || scenario6 === "OOO":
       roundOver = true;
+      updateScoreBoard(turn);
+      showNextModal(turn);
       break;
     case scenario7 === "XXX" || scenario7 === "OOO":
       roundOver = true;
+      updateScoreBoard(turn);
+      showNextModal(turn);
       break;
     case scenario8 === "XXX" || scenario8 === "OOO":
       roundOver = true;
+      updateScoreBoard(turn);
+      showNextModal(turn);
       break;
   }
 
-  if(turnsPlayed === 9 && roundOver === false){
-    //Show result modal => $modal.show()
+  if (turnsPlayed === 9 && roundOver === false) {
+    updateScoreBoard(turn, true);
+    showNextModal(turn, true);
+    roundOver = true;
+  }
+};
+
+const checkCPUChoice = (value, choice) => {
+  if(!value){
+    let $cpuCell = $(`#cell-${choice}`);
+    fillCell($cpuCell);
+    checkForWinner();
+  }else{
+    console.log(`Cell Already Taken: ${choice}!`);
+    return true;
+  }
+}
+
+const checkCPUPlay = () => {
+  if (playerDetails.p2IsCPU && playerDetails.p2 === turn && roundOver === false) {
+    console.log("CPU PLAYS HERE!");
+    let control = true;
+    
+    //loop through cpu plays until it corresponse to an empty cell and then fill cell
+    while(control){
+      let choice = cpuPlay();
+
+      switch (choice) {
+        case 0:
+          control = checkCPUChoice(board[0][0], choice);
+          break;
+        case 1:
+          control = checkCPUChoice(board[0][1], choice);
+          break;
+        case 2:
+          control = checkCPUChoice(board[0][2], choice);
+          break;
+        case 3:
+          control = checkCPUChoice(board[1][0], choice);
+          break;
+        case 4:
+          control = checkCPUChoice(board[1][1], choice);
+          break;
+        case 5:
+          control = checkCPUChoice(board[1][2], choice);
+          break;
+        case 6:
+          control = checkCPUChoice(board[2][0], choice);
+          break;
+        case 7:
+          control = checkCPUChoice(board[2][1], choice);
+          break;
+        case 8:
+          control = checkCPUChoice(board[2][2], choice);
+          break;
+      }
+
+    }
+
+    changeTurnIndicator();
   }
 };
 
 const setCellsOnClickEvents = () => {
   const $boardCell = $(".board-cell");
   for (const cell of $boardCell) {
-    $(cell).on("click", (event) => {
+    $(cell).on("click", () => {
       if ($(cell)[0].childElementCount == 0) {
         fillCell($(cell));
         checkForWinner();
         changeTurnIndicator();
+        checkCPUPlay();
       } else {
         alert("Cell already occupied");
       }
     });
   }
+
 };
+
+const setBoardPlayersReference = (players) => {
+  playerDetails = players;
+};
+
+$restartBtn.on("click", showRestartModal);
 
 export {
   createBoard,
-  setCellsOnClickEvents
-}
+  setCellsOnClickEvents,
+  resetGameBoard,
+  setBoardPlayersReference,
+  checkCPUPlay
+};

@@ -1,29 +1,30 @@
 import { setChoiceOnClickEvents, setNewGameClickEvents } from "./menu.js";
-import { createBoard, setCellsOnClickEvents } from "./gameboard.js";
+import { createBoard, setCellsOnClickEvents, setBoardPlayersReference } from "./gameboard.js";
+import { setModalPlayersReference } from "./resultmodal.js";
 
 $(document).ready(() => {
   /* General Interactions */
-  let p1 = "O";
 
-  let p2 = "X";
-
-  let p2IsCPU = false;
-
-  let gameStarted = false;
+  const players = {
+    p1 : "O",  
+    p2 : "X",
+    p2IsCPU : false
+  }
 
   const $menu = $("#menu");
   const $game = $("#game");
 
   /* Menu Interactions */
 
-  setChoiceOnClickEvents(p1, p2);
-  setNewGameClickEvents(p1, p2IsCPU, $menu, $game);
+  setChoiceOnClickEvents(players);
+  setNewGameClickEvents(players, $menu, $game);
 
   /* Game Interactions */
 
   //Initialize Board
   createBoard();
   setCellsOnClickEvents();
+  setBoardPlayersReference(players);
 
-  
+  setModalPlayersReference(players);
 });

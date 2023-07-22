@@ -118,7 +118,7 @@
     background-color: var(--lightNavy);
 }
 
-.choice-btn-inactive > span {
+.choice-btn-inactive>span {
     background-color: var(--silver);
     mask: url(icon-x.svg) no-repeat center;
 }
@@ -189,10 +189,10 @@ body {
     display: flex;
 }
 
-#restart-btn > img {
+#restart-btn>img {
     display: block;
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #board {
@@ -232,7 +232,7 @@ body {
     padding: 10px;
 }
 
-.score-card > p{
+.score-card>p {
     margin: 0;
     color: var(--navy);
 }
@@ -253,4 +253,51 @@ body {
 /* Modal */
 #modal {
     display: none;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.397);
+}
+
+.modal-content {
+    display: flex;
+    background-color: var(--lightNavy);
+    width: 100%;
+    height: fit-content;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+}
+
+#next-content {
+    display: none;
+}
+
+#next-content>p {
+    margin: 0 0 10px 0;
+}
+
+#next-content>div {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 20px;
+    margin: 10px 0 0 0;
+}
+
+
+#restart-content {
+    display: none;
+}
+
+#restart-content>p {
+    margin: 0;
+}
+
+#restart-content>div {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 20px;
+    margin: 20px 0 0 0;
 }
