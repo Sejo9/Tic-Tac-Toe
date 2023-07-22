@@ -301,3 +301,33 @@ body {
     column-gap: 20px;
     margin: 20px 0 0 0;
 }
+
+@media (max-width: 800px){
+    .container {
+        width: 100%;
+        border: 2px solid green;
+    }
+
+    #board {
+        grid-template-columns: 20vw 20vw 20vw;
+        grid-template-rows: 20vw 20vw 20vw;
+        gap: 5vw;
+    }
+
+    #scores {
+        margin-top: 5vw;
+        grid-template-columns: 20vw 20vw 20vw;
+        gap: 5vw;
+    }
+}
+
+@media (max-width: 400px){
+    #pick-choice-outer {
+        width: 80%;
+    }
+
+    #new-game-btns {
+        width: 80%;
+    }
+    
+}

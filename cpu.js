@@ -1,10 +1,12 @@
 import {checkCPUPlay} from "./gameboard.js";
 
-let isCPUActive = false;
+const cpuState = {
+    isCPUActive: false
+}
 let playerDetails;
 
 const startCPU = (players) => {
-    isCPUActive = true;
+    cpuState.isCPUActive = true;
     playerDetails = players;
     checkCPUPlay();
 }
@@ -15,7 +17,13 @@ const cpuPlay = () => {
     return index;
 }
 
+const stopCPU = () => {
+    cpuState.isCPUActive = false;
+}
+
 export {
+    cpuState,
     startCPU,
-    cpuPlay
+    cpuPlay,
+    stopCPU
 }

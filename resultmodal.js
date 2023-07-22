@@ -1,5 +1,6 @@
 import { resetGameBoard } from "./gameboard.js";
 import { resetScores } from "./scores.js";
+import { stopCPU } from "./cpu.js";
 
 const $menu = $("#menu");
 const $game = $("#game");
@@ -86,6 +87,7 @@ $nextBtn.on("click", () => {
 });
 
 $quitBtn.on("click", () => {
+  stopCPU();
   resetGameBoard();
   resetScores();
   hideNextModal();

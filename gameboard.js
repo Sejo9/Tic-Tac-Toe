@@ -1,6 +1,6 @@
 import { scoreBoard, updateScoreBoard } from "./scores.js";
 import { showNextModal, showRestartModal } from "./resultmodal.js";
-import { cpuPlay } from "./cpu.js";
+import { cpuPlay, cpuState } from "./cpu.js";
 
 let turn = "X";
 let turnsPlayed = 0;
@@ -35,7 +35,9 @@ const resetGameBoard = () => {
   }
   createBoard();
   setCellsOnClickEvents();
-  checkCPUPlay();
+  if(cpuState.isCPUActive){
+    checkCPUPlay();
+  }
 };
 
 //Change Turn Indicator
@@ -223,7 +225,9 @@ const setCellsOnClickEvents = () => {
         fillCell($(cell));
         checkForWinner();
         changeTurnIndicator();
-        checkCPUPlay();
+        if(cpuState.isCPUActive){
+          checkCPUPlay();
+        }
       } else {
         alert("Cell already occupied");
       }
