@@ -15,19 +15,19 @@
 
   <!-- New game menu start -->
 
-  <div id="menu">
+  <div id="menu" class="container">
     <div id="xo">
       <img height="32px" src="./assets/icon-x.svg" alt="X" />
       <img height="32px" src="./assets/icon-o.svg" alt="O" />
     </div>
 
-
-
     <div id="pick-choice-outer">
       <p class="heading-xs">Pick player 1's mark</p>
       <div id="pick-choice-inner">
-        <button id="choice-x" class="btn-primary choice-btn-inactive"><img height="32px" src="./assets/icon-x-silver.svg" alt="X"/></button>
-        <button id="choice-o" class="btn-primary choice-btn-selected"><img height="32px" src="./assets/icon-o-navy.svg" alt="O" /></button>
+        <button id="choice-x" class="btn-primary choice-btn-inactive"><img height="32px"
+            src="./assets/icon-x-silver.svg" alt="X" /></button>
+        <button id="choice-o" class="btn-primary choice-btn-selected"><img height="32px" src="./assets/icon-o-navy.svg"
+            alt="O" /></button>
       </div>
       <p class="body">Remember: X goes first</p>
     </div>
@@ -35,7 +35,8 @@
 
 
     <div id="new-game-btns">
-      <button id="new-game-cpu" class="btn-primary yellow-btn heading-s" style="margin-bottom: 20px;">New Game (vs CPU)</button>
+      <button id="new-game-cpu" class="btn-primary yellow-btn heading-s" style="margin-bottom: 20px;">New Game (vs
+        CPU)</button>
       <button id="new-game-player" class="btn-primary blue-btn heading-s">New Game (vs player)</button>
     </div>
   </div>
@@ -44,16 +45,47 @@
 
   <!-- Game board start -->
 
-  <div id="game">
-    <!-- x/o icon --> turn
+  <div id="game" class="container">
+    <!-- Game top bar -->
+    <div id="top-bar">
+      <div>
+        <img height="32px" src="./assets/icon-x.svg" alt="X" />
+        <img height="32px" src="./assets/icon-o.svg" alt="O" />
+      </div>
 
-    X (You)
-    <!-- Your score -->
-    Ties
-    <!-- Ties score -->
-    X (CPU)
-    <!-- CPU score -->
+      <button id="turn-indicator" class="btn-secondary navy-btn"><img height="20px" src="./assets/icon-x-silver.svg"
+          alt="X" />&nbsp;&nbsp;&nbsp;TURN</button>
 
+      <button id="restart-btn" class="btn-secondary silver-btn"><img height="20px" src="./assets/icon-restart.svg"
+          alt="X" /></button>
+
+
+    </div>
+
+    <div id="board"></div>
+
+    <div id="scores">
+      <div id="x-card" class="score-card">
+        <p id="x-score-header" class="body">X (YOU)</p>
+        <p id="x-score" class="heading-m">0</p>
+      </div>
+      <div id="ties-card" class="score-card">
+        <p class="body">TIES</p>
+        <p  id="ties-score" class="heading-m">0</p>
+      </div>
+      <div id="o-card" class="score-card">
+        <p id="o-score-header" class="body">O (CPU)</p>
+        <p id="o-score" class="heading-m">0</p>
+      </div>
+    </div>
+    
+  </div>
+
+
+  <!-- Game board end -->
+
+<!-- Result Modal start -->
+  <div id="modal">
     Oh no, you lost
     You won!
     Player
@@ -68,10 +100,10 @@
     No, cancel
     Yes, restart
   </div>
+<!-- Result Modal end -->
 
-
-  <!-- Game board end -->
-  <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+    crossorigin="anonymous"></script>
   <script type="module" src="main.js"></script>
 
 </body>

@@ -86,6 +86,13 @@
     background-color: var(--lightBlue);
 }
 
+.navy-btn {
+    background-color: var(--lightNavy);
+    box-shadow: 0 5px var(--navyShadow);
+    color: var(--silver);
+    cursor: auto;
+}
+
 .silver-btn {
     background-color: var(--silver);
     box-shadow: 0 5px var(--silverShadow);
@@ -134,7 +141,7 @@ body {
     margin-bottom: 20px;
 }
 
-#menu {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -168,5 +175,82 @@ body {
 
 /* Game */
 #game {
+    display: none;
+}
+
+#top-bar {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+#turn-indicator {
+    display: flex;
+}
+
+#restart-btn > img {
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: 8vw 8vw 8vw;
+    grid-template-rows: 8vw 8vw 8vw;
+    gap: 2vw;
+    justify-content: center;
+}
+
+.board-cell {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* Games Scores */
+#scores {
+    margin-top: 2vw;
+    display: grid;
+    grid-template-columns: 8vw 8vw 8vw;
+    justify-content: center;
+    gap: 2vw;
+}
+
+.score-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: fit-content;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.score-card > p{
+    margin: 0;
+    color: var(--navy);
+}
+
+#x-card {
+    background-color: var(--blue);
+}
+
+#ties-card {
+    background-color: var(--silver);
+}
+
+#o-card {
+    background-color: var(--yellow);
+}
+
+
+/* Modal */
+#modal {
     display: none;
 }
