@@ -302,7 +302,7 @@ body {
     margin: 20px 0 0 0;
 }
 
-@media (max-width: 800px){
+@media (max-width: 800px) {
     .container {
         width: 100%;
         border: 2px solid green;
@@ -321,7 +321,7 @@ body {
     }
 }
 
-@media (max-width: 400px){
+@media (max-width: 400px) {
     #pick-choice-outer {
         width: 80%;
     }
@@ -329,5 +329,10 @@ body {
     #new-game-btns {
         width: 80%;
     }
-    
+
+    .heading-l {
+        font-weight: 700;
+        font-size: 24px;
+        letter-spacing: 1.5px;
+    }
 }
