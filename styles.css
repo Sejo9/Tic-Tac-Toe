@@ -305,7 +305,6 @@ body {
 @media (max-width: 800px) {
     .container {
         width: 100%;
-        border: 2px solid green;
     }
 
     #board {
