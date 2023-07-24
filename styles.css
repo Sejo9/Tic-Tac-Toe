@@ -350,7 +350,7 @@ body {
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
     #pick-choice-outer {
         width: 80%;
     }
