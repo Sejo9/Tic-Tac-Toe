@@ -135,6 +135,13 @@ body {
     flex-direction: column;
 }
 
+#block {
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+}
 
 /* Menu */
 #xo {
@@ -179,17 +186,23 @@ body {
 }
 
 #top-bar {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 8vw 8vw 8vw;
+    justify-content: center;
+    gap: 2vw;
     margin-bottom: 20px;
-    align-items: center;
 }
 
 #turn-indicator {
     display: flex;
 }
 
-#restart-btn>img {
+#restart-btn {
+    width: 50%;
+    margin-left: 50%;
+}
+
+#restart-btn > img {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -211,6 +224,18 @@ body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+
+.x-outline {
+    width: 32px;
+    height: 32px;
+    content: url('./assets/icon-x-outline.svg');
+}
+
+.o-outline {
+    width: 32px;
+    height: 32px;
+    content: url('./assets/icon-o-outline.svg');
 }
 
 /* Games Scores */
@@ -305,12 +330,16 @@ body {
 @media (max-width: 800px) {
     .container {
         width: 100%;
-        border: 2px solid green;
     }
 
     #board {
         grid-template-columns: 20vw 20vw 20vw;
         grid-template-rows: 20vw 20vw 20vw;
+        gap: 5vw;
+    }
+
+    #top-bar {
+        grid-template-columns: 20vw 20vw 20vw;
         gap: 5vw;
     }
 
