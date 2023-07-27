@@ -149,13 +149,7 @@ $(document).ready(() => {
 
   const startCPU = () => {
     isCPUActive = true;
-    checkCPUPlay();
-  };
-
-  const cpuPlay = () => {
-    let index = Math.floor(Math.random() * 9);
-
-    return index;
+    cpuPlay();
   };
 
   const stopCPU = () => {
@@ -257,6 +251,7 @@ $(document).ready(() => {
   //Creates a cell for the game board
   const createCell = (index) => {
     let $cell = $(`<div id="cell-${index}" class="navy-btn board-cell"></div>`);
+
     $cell.on("mouseover", () => {
       if (!$cell.html()) {
         if (turn === "X") {
@@ -270,6 +265,7 @@ $(document).ready(() => {
         }
       }
     });
+
     $cell.on("mouseleave", () => {
       if (
         $cell.html() ===
@@ -278,8 +274,6 @@ $(document).ready(() => {
           '<img height="32px" src="./assets/icon-o-outline.svg" alt="O">'
       ) {
         $cell.empty();
-      } else {
-        console.log($cell.html());
       }
     });
 
@@ -295,16 +289,23 @@ $(document).ready(() => {
 
   const resetGameBoard = () => {
     roundOver = false;
+
     turnsPlayed = 0;
+
     $gameBoard.empty();
+
     board = [[], [], []];
+
     if (turn !== "X") {
       changeTurnIndicator();
     }
+
     createBoard();
+
     setCellsOnClickEvents();
+
     if (isCPUActive) {
-      checkCPUPlay();
+      cpuPlay();
     }
   };
 
@@ -323,7 +324,6 @@ $(document).ready(() => {
     }
   };
 
-  //Fill a cell
   const fillCell = (cell) => {
     if (turn === "X") {
       cell.html(`<img height="32px" src="./assets/icon-x.svg" alt="X" />`);
@@ -441,48 +441,203 @@ $(document).ready(() => {
 
       return false;
     } else {
-      console.log(`Cell Already Taken: ${choice}!`);
       return true;
     }
   };
 
-  const checkCPUPlay = () => {
+  const predict = () => {
+    const convertMarkToPoint = (mark) => {
+      if (mark === "X") {
+        return 1;
+      } else if (mark === "O") {
+        return 5;
+      } else {
+        return 0;
+      }
+    };
+
+    const findEmptyBoardValueAndPlay = (scenario) => {
+      switch (scenario) {
+        case 1:
+          if (!board[0][0]) checkCPUChoice(board[0][0], 0);
+          if (!board[0][1]) checkCPUChoice(board[0][1], 1);
+          if (!board[0][2]) checkCPUChoice(board[0][2], 2);
+          break;
+        case 2:
+          if (!board[1][0]) checkCPUChoice(board[1][0], 3);
+          if (!board[1][1]) checkCPUChoice(board[1][1], 4);
+          if (!board[1][2]) checkCPUChoice(board[1][2], 5);
+          break;
+        case 3:
+          if (!board[2][0]) checkCPUChoice(board[2][0], 6);
+          if (!board[2][1]) checkCPUChoice(board[2][1], 7);
+          if (!board[2][2]) checkCPUChoice(board[2][2], 8);
+          break;
+        case 4:
+          if (!board[0][0]) checkCPUChoice(board[0][0], 0);
+          if (!board[1][0]) checkCPUChoice(board[1][0], 3);
+          if (!board[2][0]) checkCPUChoice(board[2][0], 6);
+          break;
+        case 5:
+          if (!board[0][1]) checkCPUChoice(board[0][1], 1);
+          if (!board[1][1]) checkCPUChoice(board[1][1], 4);
+          if (!board[2][1]) checkCPUChoice(board[2][1], 7);
+          break;
+        case 6:
+          if (!board[0][2]) checkCPUChoice(board[0][2], 2);
+          if (!board[1][2]) checkCPUChoice(board[1][2], 5);
+          if (!board[2][2]) checkCPUChoice(board[2][2], 8);
+          break;
+        case 7:
+          if (!board[0][0]) checkCPUChoice(board[0][0], 0);
+          if (!board[1][1]) checkCPUChoice(board[1][1], 4);
+          if (!board[2][2]) checkCPUChoice(board[2][2], 8);
+          break;
+        case 8:
+          if (!board[0][2]) checkCPUChoice(board[0][2], 2);
+          if (!board[1][1]) checkCPUChoice(board[1][1], 4);
+          if (!board[2][0]) checkCPUChoice(board[2][0], 6);
+          break;
+      }
+    };
+
+    //Board values as cells
+    const c1 = convertMarkToPoint(board[0][0]);
+    const c2 = convertMarkToPoint(board[0][1]);
+    const c3 = convertMarkToPoint(board[0][2]);
+    const c4 = convertMarkToPoint(board[1][0]);
+    const c5 = convertMarkToPoint(board[1][1]);
+    const c6 = convertMarkToPoint(board[1][2]);
+    const c7 = convertMarkToPoint(board[2][0]);
+    const c8 = convertMarkToPoint(board[2][1]);
+    const c9 = convertMarkToPoint(board[2][2]);
+
+    //Horizontal Lines
+    const scenario1 = c1 + c2 + c3;
+    const scenario2 = c4 + c5 + c6;
+    const scenario3 = c7 + c8 + c9;
+    //Vertical Lines
+    const scenario4 = c1 + c4 + c7;
+    const scenario5 = c2 + c5 + c8;
+    const scenario6 = c3 + c6 + c9;
+    //Diagonal Lines
+    const scenario7 = c1 + c5 + c9;
+    const scenario8 = c3 + c5 + c7;
+
+    const scenarios = [
+      scenario1,
+      scenario2,
+      scenario3,
+      scenario4,
+      scenario5,
+      scenario6,
+      scenario7,
+      scenario8,
+    ];
+
+    const checkIfCPUCanWin = () => {
+      let winningScenarioIndex;
+
+      if (players.p2 === "X") {
+        for (let i = 0; i < scenarios.length; i++) {
+          if (scenarios[i] + 1 === 3) {
+            winningScenarioIndex = i + 1;
+            break;
+          }
+        }
+      } else {
+        for (let i = 0; i < scenarios.length; i++) {
+          if (scenarios[i] + 5 === 15) {
+            winningScenarioIndex = i + 1;
+            break;
+          }
+        }
+      }
+
+      if (winningScenarioIndex) {
+        findEmptyBoardValueAndPlay(winningScenarioIndex);
+        return true;
+      } else {
+        console.log("Can't win! Check block!");
+        return false;
+      }
+    };
+
+    const checkIfPlayerCanWin = () => {
+      let winningScenarioIndex;
+
+      if (players.p1 === "X") {
+        for (let i = 0; i < scenarios.length; i++) {
+          if (scenarios[i] + 1 === 3) {
+            winningScenarioIndex = i + 1;
+            break;
+          }
+        }
+      } else {
+        for (let i = 0; i < scenarios.length; i++) {
+          if (scenarios[i] + 5 === 15) {
+            winningScenarioIndex = i + 1;
+            break;
+          }
+        }
+      }
+
+      if (winningScenarioIndex) {
+        findEmptyBoardValueAndPlay(winningScenarioIndex);
+        return true;
+      } else {
+        console.log("Can't block! Play random!");
+        return false;
+      }
+    };
+
+    if(!checkIfCPUCanWin()){
+      return checkIfPlayerCanWin();
+    }else{
+      return true;
+    }
+  };
+
+  const cpuPlay = () => {
     if (players.p2IsCPU && players.p2 === turn && roundOver === false) {
       let control = true;
       $gameBlock.show();
 
-      //loop through cpu plays until it corresponds to an empty cell and then fill cell
-      while (control) {
-        let choice = cpuPlay();
+      //Check if CPU can prevent P1 from winning
+      if (!predict()) {
+        //loop through cpu plays until it corresponds to an empty cell and then fill cell
+        while (control) {
+          let choice = Math.floor(Math.random() * 9);
 
-        switch (choice) {
-          case 0:
-            control = checkCPUChoice(board[0][0], choice);
-            break;
-          case 1:
-            control = checkCPUChoice(board[0][1], choice);
-            break;
-          case 2:
-            control = checkCPUChoice(board[0][2], choice);
-            break;
-          case 3:
-            control = checkCPUChoice(board[1][0], choice);
-            break;
-          case 4:
-            control = checkCPUChoice(board[1][1], choice);
-            break;
-          case 5:
-            control = checkCPUChoice(board[1][2], choice);
-            break;
-          case 6:
-            control = checkCPUChoice(board[2][0], choice);
-            break;
-          case 7:
-            control = checkCPUChoice(board[2][1], choice);
-            break;
-          case 8:
-            control = checkCPUChoice(board[2][2], choice);
-            break;
+          switch (choice) {
+            case 0:
+              control = checkCPUChoice(board[0][0], choice);
+              break;
+            case 1:
+              control = checkCPUChoice(board[0][1], choice);
+              break;
+            case 2:
+              control = checkCPUChoice(board[0][2], choice);
+              break;
+            case 3:
+              control = checkCPUChoice(board[1][0], choice);
+              break;
+            case 4:
+              control = checkCPUChoice(board[1][1], choice);
+              break;
+            case 5:
+              control = checkCPUChoice(board[1][2], choice);
+              break;
+            case 6:
+              control = checkCPUChoice(board[2][0], choice);
+              break;
+            case 7:
+              control = checkCPUChoice(board[2][1], choice);
+              break;
+            case 8:
+              control = checkCPUChoice(board[2][2], choice);
+              break;
+          }
         }
       }
     }
@@ -490,6 +645,7 @@ $(document).ready(() => {
 
   const setCellsOnClickEvents = () => {
     const $boardCell = $(".board-cell");
+
     for (const cell of $boardCell) {
       $(cell).on("click", () => {
         if (
@@ -502,7 +658,7 @@ $(document).ready(() => {
           checkForWinner();
           changeTurnIndicator();
           if (isCPUActive) {
-            checkCPUPlay();
+            cpuPlay();
           }
         } else {
           alert("Cell already occupied");
