@@ -591,9 +591,9 @@ $(document).ready(() => {
       }
     };
 
-    if(!checkIfCPUCanWin()){
+    if (!checkIfCPUCanWin()) {
       return checkIfPlayerCanWin();
-    }else{
+    } else {
       return true;
     }
   };
