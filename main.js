@@ -18,7 +18,6 @@ $(document).ready(() => {
   const $choiceXImage = $("#choice-x img");
   const $choiceO = $("#choice-o");
   const $choiceOImage = $("#choice-o img");
-  const $difficultySelector = $("#difficulty");
   const $newGameCPU = $("#new-game-cpu");
   const $newGamePlayer = $("#new-game-player");
   let difficulty = "";
@@ -86,13 +85,6 @@ $(document).ready(() => {
   });
 
   $newGameCPU.on("click", () => {
-    if (!$difficultySelector.val()) {
-      alert("Please select a difficulty!");
-      return;
-    } else {
-      difficulty = $difficultySelector.val();
-    }
-
     players.p2IsCPU = true;
     $menu.hide();
     setupScoreHeaders(players);
@@ -600,15 +592,10 @@ $(document).ready(() => {
       }
     };
 
-    switch(difficulty){
-      case "normal":
-        return checkIfCPUCanWin();
-      case "hard":
-        if (!checkIfCPUCanWin()) {
-          return checkIfPlayerCanWin();
-        } else {
-          return true;
-        }
+    if (!checkIfCPUCanWin()) {
+      return checkIfPlayerCanWin();
+    } else {
+      return true;
     }
 
     
@@ -656,18 +643,9 @@ $(document).ready(() => {
     if (players.p2IsCPU && players.p2 === turn && roundOver === false) {
       $gameBlock.show();
 
-      switch (difficulty) {
-        case "easy":
-          playRandom();
-          break;
-        case "normal":
-        case "hard":
-          //Check if CPU can win or prevent player from winning
-          if (!playPredict()) {
-            //loop through cpu plays until it corresponds to an empty cell and then fill cell
-            playRandom();
-          }
-          break;
+      if (!playPredict()) {
+        //loop through cpu plays until it corresponds to an empty cell and then fill cell
+        playRandom();
       }
     }
   };
